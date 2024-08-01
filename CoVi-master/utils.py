@@ -35,8 +35,8 @@ def get_dataset(domain_name, db_path):
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
             ]),
         }
-        tr_dataset = ImageFolder(db_path + '/office31/Office-31/' + domain_name + '/', data_transforms['train'])
-        te_dataset = ImageFolder(db_path + '/office31/Office-31/' + domain_name + '/', data_transforms['test'])
+        tr_dataset = ImageFolder(db_path + '/office31/Office-31/' + domain_name, data_transforms['train'])
+        te_dataset = ImageFolder(db_path + '/office31/Office-31/' + domain_name, data_transforms['test'])
 
     elif domain_name in ['art', 'product', 'clipart', 'realworld']:  # Office-Home
         data_transforms = {
