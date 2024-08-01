@@ -47,7 +47,7 @@ def main():
     net_part1 = nn.Sequential(*(list(net.module.children())[:-2]))
     
     learnable_params = list(net.parameters()) + list(head.parameters()) + list(classifier.parameters())
-    net, head, classifier = utils.load_net(args, net, head, classifier, root='kaggle/input/')
+    net, head, classifier = utils.load_net(args, net, head, classifier, root='/kaggle/input/')
     model = nn.Sequential(net, head, classifier)
 
     optimizer = optim.SGD(learnable_params, lr=lr, momentum=momentum, weight_decay=l2_decay)
