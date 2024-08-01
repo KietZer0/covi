@@ -83,7 +83,10 @@ def train_covi(args, src_train_loader, tgt_train_loader, optimizer, optimizer_em
         mixed_input = src_imgs * i + tgt_imgs * (1 - i)
         shuff_input = src_imgs * i + tgt_imgs[shuff_idx] * (1 - i)
 
-        shuff_out1, shuff_out2 = model(mixed_input), model(shuff_input)
+        shuff_out1 = model(mixed_input)
+        torch.cuda.empty_cache()  # Giải phóng bộ nhớ sau khi tính toán xong lần đầu
+        shuff_out2 = model(shuff_input)
+
 
         consensus_loss = cross_entropy(shuff_out1, src_labels) + cross_entropy(shuff_out2, src_labels)
         total_loss += (consensus_loss / 2)
