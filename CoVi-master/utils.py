@@ -66,7 +66,7 @@ def get_dataset(domain_name, db_path):
 
 
 def get_train_info():
-    lr = 1e-2
+    lr = 1e-3
     l2_decay = 5e-4
     momentum = 0.9
 
