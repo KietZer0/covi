@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 
-from network import models
+import models
 
 
 def get_data_info(args):
