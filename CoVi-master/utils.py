@@ -67,17 +67,17 @@ def get_dataset(domain_name, db_path):
 
 def get_train_info():
     lr = 1e-5
-    # l2_decay = 5e-4
-    # momentum = 0.9
+    l2_decay = 5e-4
+    momentum = 0.9
 
-    print('lr', lr)
-    return lr
+    print('lr, l2_decay, momentum:', lr, l2_decay, momentum)
+    return lr, l2_decay, momentum
 
 
 def get_net_info(num_classes):
     net = nn.DataParallel(models.ResNet50().encoder).cuda()
     head = nn.DataParallel(models.Head()).cuda()
-    classifier = nn.DataParallel(nn.Linear(512, num_classes)).cuda()
+    classifier = nn.DataParallel(nn.Linear(256, num_classes)).cuda()
     emp_learner = nn.DataParallel(models.EmpLearner()).cuda()
 
     return net, head, classifier, emp_learner

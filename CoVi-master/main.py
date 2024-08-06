@@ -41,7 +41,7 @@ def main():
     tgt_train_loader = torchdata.DataLoader(tgt_trainset, batch_size=args.batch_size, shuffle=True, num_workers=args.workers, pin_memory=True, drop_last=True)
     tgt_test_loader = torchdata.DataLoader(tgt_testset, batch_size=args.batch_size, shuffle=False, num_workers=args.workers, pin_memory=True, drop_last=False)
 
-    lr = utils.get_train_info()
+    lr, l2_decay, momentum = utils.get_train_info()
 
     net, head, classifier, emp_learner = utils.get_net_info(num_classes)
     net_part1 = nn.Sequential(*(list(net.module.children())[:-2]))
@@ -50,8 +50,8 @@ def main():
     net, head, classifier = utils.load_net(args, net, head, classifier, root='/kaggle/input/')
     model = nn.Sequential(net, head, classifier)
 
-    optimizer = optim.Adam(learnable_params, lr=lr)
-    optimizer_emp = optim.Adam(list(emp_learner.parameters()), lr=lr)
+    optimizer = optim.SGD(learnable_params, lr=lr, momentum=momentum, weight_decay=l2_decay)
+    optimizer_emp = optim.SGD(list(emp_learner.parameters()), lr=lr, momentum=momentum, weight_decay=l2_decay)
 
     best_acc = utils.evaluate(model, tgt_test_loader)
 
