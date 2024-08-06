@@ -165,8 +165,8 @@ class Head(nn.Module):
     def __init__(self):
         super(Head, self).__init__()
         self.head = nn.Sequential(
-            nn.Linear(2048, 256),
-            nn.ReLU()
+            nn.Linear(2048, 512),
+            nn.ReLU(inplace=True)
         )
         init_weights(self)
 

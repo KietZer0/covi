@@ -50,8 +50,8 @@ def main():
     net, head, classifier = utils.load_net(args, net, head, classifier, root='/kaggle/input/')
     model = nn.Sequential(net, head, classifier)
 
-    optimizer = optim.SGD(learnable_params, lr=lr, momentum=momentum, weight_decay=l2_decay)
-    optimizer_emp = optim.SGD(list(emp_learner.parameters()), lr=lr, momentum=momentum, weight_decay=l2_decay)
+    optimizer = optim.Adam(learnable_params, lr=lr)
+    optimizer_emp = optim.Adam(list(emp_learner.parameters()), lr=lr)
 
     best_acc = utils.evaluate(model, tgt_test_loader)
 
